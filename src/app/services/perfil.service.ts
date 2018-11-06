@@ -30,6 +30,7 @@ export class PerfilService {
       'Content-Type': 'application/json'
     });*/
     //return this.http.post('http://localhost:49646/api/Perfil', body, requestOptions).subscribe(x => x.json());
+    console.log(perfil);
     return this.http.post('http://localhost:58520/api/Perfil', perfil);
   }
 

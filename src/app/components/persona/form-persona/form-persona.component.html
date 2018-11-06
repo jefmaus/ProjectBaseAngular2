@@ -76,7 +76,7 @@
           <div class="row">
             <mat-form-field class="col-12 col-lg-6 w-100">
               <mat-select placeholder="Elije un perfil" formControlName="perfil">
-                <mat-option *ngFor="let perfil of listaPerfiles" [value]="perfil.idPerfil">
+                <mat-option *ngFor="let perfil of listaPerfiles" [value]="perfil.id_perfil">
                   {{perfil.nombre}}
                 </mat-option>
               </mat-select>

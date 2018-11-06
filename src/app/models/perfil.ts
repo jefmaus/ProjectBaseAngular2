@@ -1,7 +1,7 @@
 export class Perfil {
 
     constructor( 
-        public idPerfil?: number, 
+        public id_perfil?: number, 
         public nombre?: string
     ) {}
 }

@@ -14,31 +14,32 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class FormPerfilComponent implements OnInit {
 
   public perfil: Perfil;
-  nombre: string = '';
 
   constructor(private perfilService: PerfilService,
     private toastr: ToastrService,
     private router: Router,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<FormPerfilComponent>, @Inject(MAT_DIALOG_DATA) public data: { perfil: Perfil }) {
+    public dialogRef: MatDialogRef<FormPerfilComponent>, @Inject(MAT_DIALOG_DATA) public data: { perfil: any }) {
     //console.log(this.data.perfil); // data que puedo recibir desde el componente que abre la modal
     this.perfil = this.data.perfil;
   }
 
   ngOnInit() {
-          //Perfil: {{perfil.nombre}}
-          
-          
-          console.log(this.perfil.nombre);
+    
+    if (this.perfil != null) {
+      this.fillForm();
+    }
   }
 
   form: FormGroup = new FormGroup({
+    id_perfil: new FormControl(null),
     nombre: new FormControl('', [Validators.required])
   });
 
-  initializeFormGroup() {
+  fillForm() {
     this.form.setValue({
-      nombre: ''
+      id_perfil: this.perfil.id_perfil,
+      nombre: this.perfil.nombre
     })
   }
 
@@ -46,19 +47,23 @@ export class FormPerfilComponent implements OnInit {
     if (this.form.valid) {
       this.perfil = new Perfil();
       try {
-        this.perfilService.guardarPerfil(this.form.value).subscribe(res => {
-          this.closeModal();
-          //this.router.navigate(["/personas.html"]);
-          this.toastr.success("El perfil ha sido creado correctamente.");
-          /*let perf: Perfil = res.body;
-          console.log(perf.perfil);
-          console.log(res.headers.get('Content-Type'));*/
-        },
-          err => {
-            console.log(err);
-          }
-        );
-        this.onReset();
+        if (this.form.value.id_perfil != null && this.form.value.id_perfil != '') {
+          this.toastr.success("ENtra a modificar.");
+        } else {
+          this.perfilService.guardarPerfil(this.form.value).subscribe(res => {
+            this.closeModal();
+            //this.router.navigate(["/personas.html"]);
+            this.toastr.success("El perfil ha sido creado correctamente.");
+            /*let perf: Perfil = res.body;
+            console.log(perf.perfil);
+            console.log(res.headers.get('Content-Type'));*/
+          },
+            err => {
+              console.log(err);
+            }
+          );
+          this.onReset();
+        }
       } catch (error) {
         this.toastr.warning("Ha ocurrido un error al intentar guardar el perfil");
       }
