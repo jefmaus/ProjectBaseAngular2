@@ -31,12 +31,17 @@ export class PerfilService {
     });*/
     //return this.http.post('http://localhost:49646/api/Perfil', body, requestOptions).subscribe(x => x.json());
     console.log(perfil);
-    return this.http.post('http://localhost:58520/api/Perfil', perfil);
+    return this.http.post('http://localhost:58520/api/perfil', perfil);
+  }
+
+  modificarPerfil(perfil: Perfil) {
+    console.log(perfil);
+       return this.http.put('http://localhost:58520/api/perfil/'+perfil.id_perfil, perfil);
   }
 
   getPerfiles() {
     //return this.http.get<Perfil[]>('http://localhost:49646/api/Perfil');
-    return this.http.get('http://localhost:58520/api/Perfil');
+    return this.http.get('http://localhost:58520/api/perfil');
     //return this.listaPerfiles;
   }
 

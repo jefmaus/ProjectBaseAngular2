@@ -26,13 +26,13 @@ export class FormPerfilComponent implements OnInit {
 
   ngOnInit() {
     
-    if (this.perfil != null) {
+    if (this.perfil != null && this.perfil.id_perfil != null) {
       this.fillForm();
     }
   }
 
   form: FormGroup = new FormGroup({
-    id_perfil: new FormControl(null),
+    id_perfil: new FormControl(),
     nombre: new FormControl('', [Validators.required])
   });
 
@@ -48,7 +48,15 @@ export class FormPerfilComponent implements OnInit {
       this.perfil = new Perfil();
       try {
         if (this.form.value.id_perfil != null && this.form.value.id_perfil != '') {
-          this.toastr.success("ENtra a modificar.");
+          this.perfilService.modificarPerfil(this.form.value).subscribe(res => {
+            this.closeModal();
+            this.toastr.success("El perfil ha sido modificado correctamente.");
+          },
+            err => {
+              console.log(err);
+            }
+          );
+          this.onReset();
         } else {
           this.perfilService.guardarPerfil(this.form.value).subscribe(res => {
             this.closeModal();
