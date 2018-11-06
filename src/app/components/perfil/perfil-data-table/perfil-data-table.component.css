@@ -1,0 +1,5 @@
+  /* Establece ancho personalizado de la columa actions */
+  .mat-column-actions {
+    flex: 0 0 90px !important;
+    width: 90px !important;
+  }

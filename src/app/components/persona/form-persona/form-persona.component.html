@@ -1,0 +1,100 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class=" mat-elevation-z4 bg-form p-20">
+          <div class="fz-1-2 mb-10 flex center-x">
+            <i class="material-icons f-color-primary mr-5">person</i>
+            <div class="pt-3">Informaci&oacute;n Personal</div>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="documento" placeholder="Documento">
+              <mat-error *ngIf="form.controls['documento'].errors?.required">El n&uacute;mero de documento es
+                requerido</mat-error>
+              <mat-error *ngIf="form.controls['documento'].errors?.pattern">Ingrese solo n&uacute;meros</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="nombre" placeholder="Nombre">
+              <mat-error *ngIf="form.controls['nombre'].errors?.required">El nombre es requerido</mat-error>
+              <mat-error *ngIf="form.controls['nombre'].errors?.pattern">Ingrese solo letras</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="apellido" placeholder="Apellido">
+              <mat-error *ngIf="form.controls['apellido'].errors?.required">El apellido es requerido</mat-error>
+              <mat-error *ngIf="form.controls['apellido'].errors?.pattern">Ingrese solo letras</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="direccion" placeholder="Direcci&oacute;n">
+              <mat-error *ngIf="form.controls['direccion'].errors?.pattern">Ingrese solo valores alfanum&eacute;ricos
+                y/o los caracteres # - , </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="telefono" placeholder="Tel&eacute;fono">
+              <mat-error *ngIf="form.controls['telefono'].errors?.pattern">Ingrese solo n&uacute;meros</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="email" placeholder="Email">
+              <mat-error *ngIf="form.controls['email'].errors?.email">Ingrese un email valido</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-6 my-sm-3 my-md-0">
+        <div class="mat-elevation-z4 bg-form p-20">
+          <div class="fz-1-2 mb-10 flex center-x">
+            <i class="material-icons f-color-primary mr-5">lock</i>
+            <div class="pt-3">Informaci&oacute;n de Acceso</div>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="text" matInput formControlName="usuario" placeholder="Usuario">
+              <mat-error *ngIf="form.controls['usuario'].errors?.required">El usuario es requerido</mat-error>
+              <mat-error *ngIf="form.controls['usuario'].errors?.minlength">Ingrese mínimo 6 caracteres</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <input type="password" matInput formControlName="clave" placeholder="Contrase&ntilde;a">
+              <mat-error *ngIf="form.controls['clave'].errors?.required">La contrase&ntilde;a es requerida</mat-error>
+              <mat-error *ngIf="form.controls['clave'].errors?.pattern">M&iacute;nimo 8 caracteres, min&uacute;sculas,
+                may&uacute;culas y un caracter especial</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12 col-lg-6 w-100">
+              <mat-select placeholder="Elije un perfil" formControlName="perfil">
+                <mat-option *ngFor="let perfil of listaPerfiles" [value]="perfil.idPerfil">
+                  {{perfil.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['perfil'].errors?.required">El perfil es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row p-10-20">
+          <div class="w-100">
+            <button mat-raised-button color="primary" class="col col-md-4" [disabled]="form.invalid">Guardar</button>
+            <button type="reset" (click)="onReset();" mat-raised-button color="secondary" class="col col-md-4 my-2 mx-md-2">Cancelar</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+</div>
