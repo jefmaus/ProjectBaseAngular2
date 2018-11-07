@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/m
 import { Perfil } from 'src/app/models/perfil';
 import { FormPerfilComponent } from '../form-perfil/form-perfil.component';
 import { PerfilService } from 'src/app/services/perfil.service';
+import { ConfirmService } from 'src/app/services/confirm.service';
 
 @Component({
   selector: 'app-perfil-data-table',
@@ -21,7 +22,7 @@ export class PerfilDataTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
 
-  constructor(public dialog: MatDialog, private perfilService: PerfilService) {
+  constructor(public dialog: MatDialog, private perfilService: PerfilService, private confirmService: ConfirmService) {
     /*this.perfilService.getPerfiles().subscribe(value => {
       this.listaPerfiles = value;
       console.log(this.listaPerfiles);
@@ -63,12 +64,24 @@ export class PerfilDataTableComponent implements OnInit {
   openDialog(perfil?: Perfil): void {
     //console.log(perfil);
     const dialogRef = this.dialog.open(FormPerfilComponent, {
-      data: {perfil: perfil}
+      data: { perfil: perfil }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.getListaPerfiles(); // actualizo la data table
     });
+  }
+
+  borrarPerfil(id: number) {
+    this.confirmService.openConfirmDialog("Está seguro que desea eliminar este perfil?")
+      .afterClosed().subscribe(res => {
+        if (res) {
+          this.perfilService.eliminarPerfil(id).subscribe(res => {
+            this.getListaPerfiles(); // actualizo la data table
+          })
+        }
+      })
+
   }
 
 }

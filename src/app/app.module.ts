@@ -26,6 +26,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { PerfilDataTableComponent } from './components/perfil/perfil-data-table/perfil-data-table.component';
 import { FormPerfilComponent } from './components/perfil/form-perfil/form-perfil.component';
 import { PersonaComponent } from './components/persona/persona.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 //import {ErrorStateMatcher} from '@angular/material/core'; // ***** QUITARLO SINO FUNCIONA VALIDACION
 
@@ -40,7 +41,8 @@ import { PersonaComponent } from './components/persona/persona.component';
     PersonaComponent,
     PerfilComponent,
     PerfilDataTableComponent,
-    FormPerfilComponent
+    FormPerfilComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { PersonaComponent } from './components/persona/persona.component';
   entryComponents: [
     // Agregar aqui los componentes que van a ser cargados en una modal.
     FormPersonaComponent,
-    FormPerfilComponent
+    FormPerfilComponent,
+    ConfirmDialogComponent
   ],
   providers: [
     PersonaService,

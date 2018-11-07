@@ -39,6 +39,10 @@ export class PerfilService {
        return this.http.put('http://localhost:58520/api/perfil/'+perfil.id_perfil, perfil);
   }
 
+  eliminarPerfil(id: number) {
+       return this.http.delete('http://localhost:58520/api/perfil/'+id);
+  }  
+
   getPerfiles() {
     //return this.http.get<Perfil[]>('http://localhost:49646/api/Perfil');
     return this.http.get('http://localhost:58520/api/perfil');
