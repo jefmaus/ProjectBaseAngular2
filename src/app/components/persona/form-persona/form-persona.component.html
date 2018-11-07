@@ -1,5 +1,6 @@
 <div class="container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input *ngIf="(persona != null && persona.id_persona != null)" type="hidden" formControlName="id_persona">
     <div class="row">
       <div class="col-md-6">
         <div class=" mat-elevation-z4 bg-form p-20">
@@ -75,12 +76,12 @@
 
           <div class="row">
             <mat-form-field class="col-12 col-lg-6 w-100">
-              <mat-select placeholder="Elije un perfil" formControlName="perfil">
+              <mat-select placeholder="Elije un perfil" formControlName="id_perfil">
                 <mat-option *ngFor="let perfil of listaPerfiles" [value]="perfil.id_perfil">
                   {{perfil.nombre}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="form.controls['perfil'].errors?.required">El perfil es requerido</mat-error>
+              <mat-error *ngIf="form.controls['id_perfil'].errors?.required">El perfil es requerido</mat-error>
             </mat-form-field>
           </div>
         </div>

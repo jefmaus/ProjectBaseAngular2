@@ -7,7 +7,8 @@ export class Persona {
 // pasar valores a dichos parametros
 
     constructor(
-        public idPersona?: number,
+        public id_persona?: number,
+        public id_perfil?: number,
         public documento?: number,
         public nombre?: string,
         public apellido?: string,

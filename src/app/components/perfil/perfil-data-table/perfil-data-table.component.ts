@@ -4,6 +4,7 @@ import { Perfil } from 'src/app/models/perfil';
 import { FormPerfilComponent } from '../form-perfil/form-perfil.component';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { ConfirmService } from 'src/app/services/confirm.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-perfil-data-table',
@@ -22,11 +23,11 @@ export class PerfilDataTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
 
-  constructor(public dialog: MatDialog, private perfilService: PerfilService, private confirmService: ConfirmService) {
-    /*this.perfilService.getPerfiles().subscribe(value => {
-      this.listaPerfiles = value;
-      console.log(this.listaPerfiles);
-   }); */
+  constructor(public dialog: MatDialog, 
+    private perfilService: PerfilService, 
+    private confirmService: ConfirmService,
+    private toastr: ToastrService) {
+
   }
 
   ngOnInit() {
@@ -78,6 +79,7 @@ export class PerfilDataTableComponent implements OnInit {
         if (res) {
           this.perfilService.eliminarPerfil(id).subscribe(res => {
             this.getListaPerfiles(); // actualizo la data table
+            this.toastr.warning("El perfil ha sido eliminado correctamente.");
           })
         }
       })

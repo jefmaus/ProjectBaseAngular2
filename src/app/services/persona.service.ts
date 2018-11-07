@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Persona } from '../models/persona';
 import { CookieService } from 'ngx-cookie-service';
 import { Perfil } from '../models/perfil';
-import { Http, RequestOptions, RequestMethod, Headers } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,24 @@ export class PersonaService {
   perfil: Perfil;
   listaPerfiles: Array<Perfil>;
 
-  constructor(private cookie: CookieService, private http: Http) { }
+  constructor(private cookie: CookieService, private http: HttpClient) { }
 
-  postPersona(persona: Persona) {
-    console.log(persona);
-    var body = JSON.stringify(persona);
-    var headerOptions = new Headers({'Content-Type':'application/json'});
-    var requestOptions = new RequestOptions({method : RequestMethod.Post, headers: headerOptions });
-    return this.http.post('http://localhost:58520/api/Persona', body, requestOptions).subscribe(x => x.json());
+  getPersonas() {
+    return this.http.get('http://localhost:58520/api/persona');
   }
+
+  guardarPersona(persona: Persona) {
+    console.log(persona);
+    return this.http.post('http://localhost:58520/api/persona', persona);
+  }
+
+  modificarPersona(persona: Persona) {
+       return this.http.put('http://localhost:58520/api/persona/'+persona.id_persona, persona);
+  }
+
+  eliminarPersona(id: number) {
+       return this.http.delete('http://localhost:58520/api/persona/'+id);
+  }  
 
   isLogin() {
     return this.cookie.get("isLogin");
@@ -45,14 +54,6 @@ export class PersonaService {
       return this.persona;
     }
 
-  }
-
-  getListaPerfiles() {
-    this.listaPerfiles = [
-      this.perfil = new Perfil(1, "Miembro"),
-      this.perfil = new Perfil(2, "Administrador")
-    ]
-    return this.listaPerfiles;
   }
 
   /*validarLogin(usuario: string, clave: string) {

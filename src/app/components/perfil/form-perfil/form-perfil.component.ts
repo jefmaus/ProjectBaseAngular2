@@ -25,7 +25,6 @@ export class FormPerfilComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     if (this.perfil != null && this.perfil.id_perfil != null) {
       this.fillForm();
     }
@@ -50,7 +49,7 @@ export class FormPerfilComponent implements OnInit {
         if (this.form.value.id_perfil != null && this.form.value.id_perfil != '') {
           this.perfilService.modificarPerfil(this.form.value).subscribe(res => {
             this.closeModal();
-            this.toastr.success("El perfil ha sido modificado correctamente.");
+            this.toastr.info("El perfil ha sido modificado correctamente.");
           },
             err => {
               console.log(err);
@@ -60,11 +59,7 @@ export class FormPerfilComponent implements OnInit {
         } else {
           this.perfilService.guardarPerfil(this.form.value).subscribe(res => {
             this.closeModal();
-            //this.router.navigate(["/personas.html"]);
-            this.toastr.success("El perfil ha sido creado correctamente.");
-            /*let perf: Perfil = res.body;
-            console.log(perf.perfil);
-            console.log(res.headers.get('Content-Type'));*/
+            this.toastr.info("El perfil ha sido creado correctamente.");
           },
             err => {
               console.log(err);
@@ -80,12 +75,10 @@ export class FormPerfilComponent implements OnInit {
 
   closeModal(): void {
     this.dialogRef.close();
-
   }
 
   onReset() {
     this.form.reset();
-    //this.initializeFormGroup();
   }
 
 }
