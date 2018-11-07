@@ -24,6 +24,7 @@ export class FormPersonaComponent implements OnInit {
     private perfilService: PerfilService,
     public dialogRef: MatDialogRef<FormPersonaComponent>, @Inject(MAT_DIALOG_DATA) public data: { persona: any }) {
     this.persona = this.data.persona;
+    console.log(this.persona);
   }
 
   ngOnInit() {
@@ -46,10 +47,10 @@ export class FormPersonaComponent implements OnInit {
       direccion: this.persona.direccion,
       telefono: this.persona.telefono,
       email: this.persona.email,
-      fechaRegistro: this.persona.fechaRegistro,
+      fecha_registro: this.persona.fecha_registro,
       usuario: this.persona.usuario,
       clave: this.persona.clave,
-      estado: this.persona.estado,      
+      estado: this.persona.estado,
     })
   }
 
@@ -63,7 +64,7 @@ export class FormPersonaComponent implements OnInit {
     direccion: new FormControl('', Validators.pattern('^[a-zA-Z0-9\\s\\-\\#\\,áéíóúÁÉÍÓÚñÑ]+$')),
     telefono: new FormControl('', Validators.pattern('^[0-9]+$')),
     email: new FormControl('', Validators.email), //\S+@\S+\.\S+
-    fechaRegistro: new FormControl(null),
+    fecha_registro: new FormControl(new Date(Date.now())),
     usuario: new FormControl('', [Validators.required, Validators.minLength(6)]),
     clave: new FormControl('', [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[0-9])(?=.*[$@$!%*?&\\.\\-\\_])[A-Za-z0-9\d$@$!%*?&\\.\\-\\_].{7,}$")]),
     estado: new FormControl('1')
@@ -79,7 +80,7 @@ export class FormPersonaComponent implements OnInit {
       direccion: '',
       telefono: '',
       email: '',
-      fechaRegistro: null,
+      fecha_registro: null,
       usuario: '',
       clave: '',
       estado: '1',
@@ -89,15 +90,28 @@ export class FormPersonaComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       try {
-        this.personaService.guardarPersona(this.form.value).subscribe(res => {
-          this.toastr.info("La persona ha sido creada correctamente");
-          this.dialogRef.close();
-        },
-          err => {
-            console.log(err);
-          }
-        );
-        this.onReset();
+        if (this.form.value.id_persona != null && this.form.value.id_persona != '') {
+          this.personaService.modificarPersona(this.form.value).subscribe(res => {
+            this.toastr.info("La persona ha sido modificada correctamente");
+            this.dialogRef.close();
+          },
+            err => {
+              console.log(err);
+            }
+          );
+          this.onReset();
+        }
+        else {
+          this.personaService.guardarPersona(this.form.value).subscribe(res => {
+            this.toastr.info("La persona ha sido creada correctamente");
+            this.dialogRef.close();
+          },
+            err => {
+              console.log(err);
+            }
+          );
+          this.onReset();
+        }
       } catch (error) {
         this.toastr.error("Error al intentar crear la persona");
       }

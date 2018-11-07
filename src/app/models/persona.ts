@@ -15,7 +15,7 @@ export class Persona {
         public direccion?: string,
         public telefono?: string,
         public email?: string,
-        public fechaRegistro?: Date,
+        public fecha_registro?: Date,
         public usuario?: string,
         public clave?: string,
         public estado?: string) {}

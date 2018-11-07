@@ -44,7 +44,7 @@ export class PersonaService {
       this.persona.apellido = 'Carvajalino';
       this.persona.direccion = 'Calle 13';
       this.persona.email = 'jefmaus@hotmail.com';
-      this.persona.fechaRegistro = new Date(Date.now());
+      this.persona.fecha_registro = new Date(Date.now());
       this.persona.usuario = 'jefmaus';
       this.persona.clave = '123';
       this.persona.estado = '1';

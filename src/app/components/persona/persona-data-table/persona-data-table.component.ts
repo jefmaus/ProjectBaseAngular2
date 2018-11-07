@@ -70,5 +70,18 @@ export class PersonaDataTableComponent implements OnInit {
     });
   }
 
+  borrarPersona(id: number) {
+    this.confirmService.openConfirmDialog("Está seguro que desea eliminar esta persona?")
+      .afterClosed().subscribe(res => {
+        if (res) {
+          this.personaService.eliminarPersona(id).subscribe(res => {
+            this.getListaPersonas(); // actualizo la data table
+            this.toastr.warning("La persona ha sido eliminada correctamente.");
+          })
+        }
+      })
+
+  }
+
 
 }
