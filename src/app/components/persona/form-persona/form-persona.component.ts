@@ -24,7 +24,6 @@ export class FormPersonaComponent implements OnInit {
     private perfilService: PerfilService,
     public dialogRef: MatDialogRef<FormPersonaComponent>, @Inject(MAT_DIALOG_DATA) public data: { persona: any }) {
     this.persona = this.data.persona;
-    console.log(this.persona);
   }
 
   ngOnInit() {

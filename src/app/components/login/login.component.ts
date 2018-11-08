@@ -40,14 +40,22 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.persona = new Persona();
-      this.persona = this.personaService.validarLogin(this.form.value);
-      if (this.persona.documento != null) {
-        //alert("Bienvenido: " + this.persona.nombre);
-        this.cookie.set("isLogin", "true");
-        this.router.navigate(['/index.html']);
-      } else {
-        this.toastr.warning("Información de acceso incorrecta");
-      }
+      this.personaService.validarLogin(this.form.value).subscribe(res => {
+        this.persona = res;
+        console.log(this.persona);
+        //console.log(this.persona.perfil.nombre);
+        if (this.persona.documento != null) {
+          //alert("Bienvenido: " + this.persona.nombre);
+          this.cookie.set("isLogin", "true");
+          this.router.navigate(['/index.html']);
+        } else {
+          this.toastr.warning("Información de acceso incorrecta");
+        }        
+      },
+        err => {
+          this.toastr.warning("Información de acceso incorrecta");
+        }
+      );
     }
   }
 

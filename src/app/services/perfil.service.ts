@@ -12,19 +12,19 @@ export class PerfilService {
   constructor(private http: HttpClient) { }
 
   guardarPerfil(perfil: Perfil) {
-    return this.http.post('http://localhost:58520/api/perfil', perfil);
+    return this.http.post('http://localhost:60474/api/perfil', perfil);
   }
 
   modificarPerfil(perfil: Perfil) {
-       return this.http.put('http://localhost:58520/api/perfil/'+perfil.id_perfil, perfil);
+       return this.http.put('http://localhost:60474/api/perfil/'+perfil.id_perfil, perfil);
   }
 
   eliminarPerfil(id: number) {
-       return this.http.delete('http://localhost:58520/api/perfil/'+id);
+       return this.http.delete('http://localhost:60474/api/perfil/'+id);
   }  
 
   getPerfiles() {
-    return this.http.get('http://localhost:58520/api/perfil');
+    return this.http.get('http://localhost:60474/api/perfil');
   }
 
 }

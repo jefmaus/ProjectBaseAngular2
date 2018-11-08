@@ -35,6 +35,7 @@ export class PersonaDataTableComponent implements OnInit {
   getListaPersonas() {
     this.personaService.getPersonas().toPromise().then((res: Persona[]) => {
       this.listaPersonas = res;
+      console.log(this.listaPersonas);
       this.listData = new MatTableDataSource(this.listaPersonas);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
