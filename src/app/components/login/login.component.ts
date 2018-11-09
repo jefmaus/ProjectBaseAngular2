@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Persona } from 'src/app/models/persona';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { Constante } from 'src/app/constantes';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   public persona: Persona;
 
-  constructor(private personaService: PersonaService, 
+  constructor(private personaService: PersonaService,
     private router: Router,
     private cookie: CookieService,
     private toastr: ToastrService) {
@@ -40,17 +41,16 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.persona = new Persona();
-      this.personaService.validarLogin(this.form.value).subscribe(res => {
-        this.persona = res;
-        console.log(this.persona);
-        //console.log(this.persona.perfil.nombre);
-        if (this.persona.documento != null) {
-          //alert("Bienvenido: " + this.persona.nombre);
-          this.cookie.set("isLogin", "true");
-          this.router.navigate(['/index.html']);
-        } else {
-          this.toastr.warning("Información de acceso incorrecta");
-        }        
+      let perfil = "";
+      this.personaService.login(this.form.value).subscribe(res => {
+        let token = res.toString();
+        let x = token.split(".");
+        this.cookie.set("user", JSON.parse(atob(x[1])).unique_name);
+        this.cookie.set("rol", JSON.parse(atob(x[1])).role);
+        this.cookie.set("isLogin", "true");
+        this.cookie.set("tkn", token);
+        Constante.refresco = false;
+        this.router.navigate(['/index.html']);
       },
         err => {
           this.toastr.warning("Información de acceso incorrecta");

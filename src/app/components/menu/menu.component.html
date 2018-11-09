@@ -1,19 +1,26 @@
 <mat-toolbar class="flex between mat-elevation-z4 zindex-999">
   <div><span class="hand-cursor" [routerLink]="['/index.html']">Project Base Angular</span></div>
-  <div>
-    <button mat-button [matMenuTriggerFor]="menu1">Menu 1</button>
-    <mat-menu #menu1="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
-    </mat-menu>
-   
-    <button mat-button [matMenuTriggerFor]="menuConfig">Configuraci&oacute;n</button>
-    <mat-menu #menuConfig="matMenu">
-      <button mat-menu-item [routerLink]="['/usuarios.html']"><mat-icon>person</mat-icon><span>Usuarios</span></button>
-      <button mat-menu-item [routerLink]="['/perfiles.html']"><mat-icon>fingerprint</mat-icon><span>Perfiles</span></button>
-    </mat-menu>   
-    
-    <button mat-button color="primary" (click)="logout()">Salir</button>
+  <div class="flex centrar-y">
+    <mat-icon>person</mat-icon>
+    <div class="fz-0-9 color-gris-10 pt-2 mr-10"><span>Bienvenido:</span>&nbsp;<span class="nobold">{{user}}</span></div>
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu1">Menu 1</button>
+      <mat-menu #menu1="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="menuConfig">Configuraci&oacute;n</button>
+      <mat-menu #menuConfig="matMenu">
+        <button mat-menu-item [routerLink]="['/usuarios.html']">
+          <mat-icon>person</mat-icon><span>Usuarios</span>
+        </button>
+        <button mat-menu-item [routerLink]="['/perfiles.html']">
+          <mat-icon>fingerprint</mat-icon><span>Perfiles</span>
+        </button>
+      </mat-menu>
+
+      <button mat-button color="primary" (click)="logout()">Salir</button>
+    </div>
   </div>
 
 </mat-toolbar>

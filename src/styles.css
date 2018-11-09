@@ -51,13 +51,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .m-20-0 { margin: 20px 0px !important; }
 .mx-10 { margin: 0px 10px !important; }
 .mx-15 { margin: 0px 15px !important; }
+.fz-0-9 { font-size: 0.9rem !important; }
+.fz-0-8 { font-size: 0.8rem !important; }
+.fz-1 { font-size: 1rem !important; }
+.fz-1-1 { font-size: 1.1rem !important; }
 .fz-1-2 { font-size: 1.2rem !important; }
+.nobold { font-weight: normal !important }
 .f-color-primary { color: #3f51b5 !important; }
 .hide { display: none !important;}
-
 .borde-rojo { border: 1px solid #F00; }
 .borde-verde { border: 1px solid #0F0; }
 .borde-azul { border: 1px solid #00F; }
+.color-gris-1 { color: #F9F9F9}.color-gris-2 { color: #F5F5F5}.color-gris-3 { color: #EEE}.color-gris-4 { color: #DDD}.color-gris-5 { color: #CCC}.color-gris-6 { color: #BBB}.color-gris-7 { color: #AAA}.color-gris-9 { color: #999}.color-gris-10 { color: #777}.color-gris-10 { color: #606060}.color-gris-11 { color: #444}.color-gris-12 { color: #333}
+
 
 .sombra-div-1 {
     box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);

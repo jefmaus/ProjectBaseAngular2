@@ -1,3 +1,5 @@
+import { Perfil } from "./perfil";
+
 export class Persona {
 
 // Pongo los objetos como opcionales " ? " para poder instanciar Persona 
@@ -9,6 +11,7 @@ export class Persona {
     constructor(
         public id_persona?: number,
         public id_perfil?: number,
+        public perfil?: Perfil,
         public documento?: number,
         public nombre?: string,
         public apellido?: string,
