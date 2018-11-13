@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { Constante } from 'src/app/constantes';
 import { PersonaService } from 'src/app/services/persona.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-menu',
@@ -16,7 +17,9 @@ export class MenuComponent implements OnInit {
 
   constructor(private cookie: CookieService, 
     private router: Router,
-    private personaService: PersonaService) { 
+    private personaService: PersonaService,
+    private toastr: ToastrService) { 
+      
     this.user = cookie.get("user");
     
   }
@@ -24,13 +27,15 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     // La unica forma que user este vacio es que se refreque el navegador o se haya cerrado la ventana
       this.personaService.validarLogin().subscribe(res=>{
-        console.log("RES: "+res);
+        //console.log("RES: "+res);
         if(!res) {
           this.logout();
         }
       },
       err => {
         this.logout();
+        this.toastr.warning("Su sesión ha expirado.");
+        //console.log(err);
       });
   }
 

@@ -12,36 +12,37 @@ export class PersonaService {
   persona: Persona;
   perfil: Perfil;
   listaPerfiles: Array<Perfil>;
-  token:string;
+  token: string;
+  headers = new HttpHeaders();
 
-  constructor(private cookie: CookieService, private http: HttpClient) { 
-    this.token = cookie.get("tkn");
+
+  constructor(private cookie: CookieService, private http: HttpClient) {
+
   }
 
   getPersonas() {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer '+this.token);
-    return this.http.get('http://localhost:60474/api/persona', {headers: headers});
+    this.token = this.cookie.get("tkn");
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.token);
+    return this.http.get('http://localhost:60474/api/persona', { headers: this.headers });
   }
 
   guardarPersona(persona: Persona) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer '+this.token);
-    console.log(persona);
-    return this.http.post('http://localhost:60474/api/persona', persona, {headers: headers});
+    this.token = this.cookie.get("tkn");
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.token);
+    return this.http.post('http://localhost:60474/api/persona', persona, { headers: this.headers });
   }
 
   modificarPersona(persona: Persona) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer '+this.token);
-       return this.http.put('http://localhost:60474/api/persona/'+persona.id_persona, persona, {headers: headers});
+    this.token = this.cookie.get("tkn");
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.token);
+    return this.http.put('http://localhost:60474/api/persona/' + persona.id_persona, persona, { headers: this.headers });
   }
 
   eliminarPersona(id: number) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer '+this.token);
-       return this.http.delete('http://localhost:60474/api/persona/'+id, {headers: headers});
-  }  
+    this.token = this.cookie.get("tkn");
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.token);
+    return this.http.delete('http://localhost:60474/api/persona/' + id, { headers: this.headers });
+  }
 
   isLogin() {
     return this.cookie.get("isLogin");
@@ -49,17 +50,15 @@ export class PersonaService {
 
   login(persona: Persona) {
     let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer '+this.token);
-    return this.http.post('http://localhost:60474/api/login', persona, {headers: headers});
+    return this.http.post('http://localhost:60474/api/login', persona);
   }
 
   validarLogin() {
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Bearer '+this.token);
+    this.token = this.cookie.get("tkn");
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.token);
     //headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.get('http://localhost:60474/api/login/validarLogin', { headers: this.headers });
+  }
 
-    return this.http.get('http://localhost:60474/api/login/validarLogin', {headers: headers});
-  }  
 
-  
 }

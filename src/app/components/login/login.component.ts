@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
         this.cookie.set("rol", JSON.parse(atob(x[1])).role);
         this.cookie.set("isLogin", "true");
         this.cookie.set("tkn", token);
-        Constante.refresco = false;
         this.router.navigate(['/index.html']);
       },
         err => {
